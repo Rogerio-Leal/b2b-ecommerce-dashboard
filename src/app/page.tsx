@@ -1,10 +1,50 @@
+"use client"; // Precisamos disso porque estamos usando um hook no lado do cliente
+
+import { useProducts } from "../hooks/useProducts";
 
 export default function Home() {
+  const { data: products, isLoading, isError } = useProducts();
+
+  if (isLoading) {
+    return (
+      <main className="p-8">
+        <h1 className="text-2xl font-bold mb-6 font-roboto">Vitrine B2B - Catálogo</h1>
+        <p>Carregando os produtos do catálogo...</p>
+      </main>
+    );
+  }
+
+  if (isError) {
+    return (
+      <main className="p-8">
+        <p className="text-red-500">Ocorreu um erro ao buscar os dados.</p>
+      </main>
+    );
+  }
+
   return (
-    <main className="min-h-screen p-8 bg-gray-100">
-      <h1 className="text-3xl font-bold text-gray-800">
-        Vitrine B2B - Catálogo
-      </h1>
+    <main className="p-8">
+      <h1 className="text-2xl font-bold mb-6 font-roboto">Vitrine B2B - Catálogo</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {products?.map((product) => (
+          <div key={product.id} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex flex-col justify-between h-full text-center">
+            <div>
+              <h2 className="font-bold text-lg mb-2 font-roboto">{product.name}</h2>
+              <span className="inline-block bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded-full mb-4">
+                {product.category}
+              </span>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                {product.description}
+              </p>
+            </div>
+            
+            <button className="w-full bg-gray-900 text-white py-2 rounded font-medium hover:bg-gray-800 transition-colors">
+              Ver Detalhes
+            </button>
+          </div>
+        ))}
+      </div>
     </main>
   );
 }
