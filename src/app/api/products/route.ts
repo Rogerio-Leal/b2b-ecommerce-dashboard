@@ -5,26 +5,26 @@ export async function GET() {
     const products: Product[] = [
         {
             id: "1",
-            name: "Papel Toalha Elite",
-            description: "Papel Toalha Elite 1000 folhas",
+            name: "Papel Toalha",
+            description: "Papel Toalha Interfolhado 1000 folhas",
             category: "Papel Toalha"
         },
         {
             id: "2",
-            name: "Detergente Limpol",
-            description: "Detergente Limpol 500ml",
+            name: "Detergente Líquido",
+            description: "Detergente 500ml",
             category: "Detergente"
         },
         {
             id: "3",
-            name: "Desinfetante Girando Sol",
-            description: "Desinfetante Girando Sol 5L",
+            name: "Desinfetante Lavanda",
+            description: "Desinfetante 5L",
             category: "Desinfetante"
         },
         {
             id: "4",
-            name: "Papel Higiênico Neve",
-            description: "Papel Higiênico Neve 12 rolos",
+            name: "Papel Higiênico",
+            description: "Papel Higiênico 12 rolos 30 metros",
             category: "Papel Higiênico"
         }
     ];
