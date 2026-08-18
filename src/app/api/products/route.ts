@@ -7,25 +7,29 @@ export async function GET() {
             id: "1",
             name: "Papel Toalha",
             description: "Papel Toalha Interfolhado 1000 folhas",
-            category: "Papel Toalha"
+            category: "Papel Toalha",
+            imageUrl: "/images/products/Desinfetante-5L-Lavanda.png"
         },
         {
             id: "2",
             name: "Detergente Líquido",
             description: "Detergente 500ml",
-            category: "Detergente"
+            category: "Detergente",
+            imageUrl: "/images/products/Desinfetante-5L-Lavanda.png"
         },
         {
             id: "3",
             name: "Desinfetante Lavanda",
             description: "Desinfetante 5L",
-            category: "Desinfetante"
+            category: "Desinfetante",
+            imageUrl: "/images/products/Desinfetante-5L-Lavanda.png"
         },
         {
             id: "4",
             name: "Papel Higiênico",
             description: "Papel Higiênico 12 rolos 30 metros",
-            category: "Papel Higiênico"
+            category: "Papel Higiênico",
+            imageUrl: "/images/products/Desinfetante-5L-Lavanda.png"
         }
     ];
 

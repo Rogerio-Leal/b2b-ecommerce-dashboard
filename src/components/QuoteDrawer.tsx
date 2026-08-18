@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { useQuoteStore } from "../store/useQuoteStore";
 import { useQueries } from "@tanstack/react-query";
 import { getProductStock } from "../services/stock";
@@ -31,7 +33,6 @@ export function QuoteDrawer() {
                 onClick={closeCart}
             />
 
-            {/* Painel Lateral */}
             <div className="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col">
                 <div className="p-5 border-b border-gray-200 flex justify-between items-center bg-gray-50">
                     <h2 className="text-xl font-bold text-gray-800 font-roboto">Resumo do Pedido</h2>
@@ -50,52 +51,73 @@ export function QuoteDrawer() {
                                 const price = query.data?.price;
 
                                 return (
-                                    <li key={item.product.id} className="flex justify-between items-start border-b border-gray-100 pb-4">
-                                        <div>
-                                            <p className="font-medium text-gray-800 font-roboto">{item.product.name}</p>
-                                            <div className="flex items-center gap-3 mt-2">
-                                                <span className="text-sm text-gray-500">Qtd:</span>
-                                                <div className="flex items-center border border-gray-200 rounded-md">
-                                                    <button
-                                                        onClick={() => decrementItem(item.product.id)}
-                                                        className="px-2 py-1 text-gray-600 hover:bg-gray-100 transition-colors"
-                                                    >
-                                                        -
-                                                    </button>
-                                                    <span className="px-3 text-sm font-medium text-gray-800 border-x border-gray-200">
-                                                        {item.quantity}
-                                                    </span>
-                                                    <button
-                                                        onClick={() => incrementItem(item.product.id)}
-                                                        className="px-2 py-1 text-gray-600 hover:bg-gray-100 transition-colors"
-                                                    >
-                                                        +
-                                                    </button>
+                                    <li key={item.product.id} className="flex items-center justify-between gap-4 border-b border-gray-100 pb-4">
+
+                                        <div className="flex items-center gap-4 flex-1">
+
+                                            <div className="w-16 h-16 relative bg-gray-50 rounded-md overflow-hidden shrink-0 border border-gray-200 flex items-center justify-center">
+                                                {item.product.imageUrl ? (
+                                                    <Image
+                                                        src={item.product.imageUrl}
+                                                        alt={item.product.name}
+                                                        fill
+                                                        className="object-contain p-1"
+                                                        sizes="64px"
+                                                    />
+                                                ) : (
+                                                    <span className="text-[10px] text-gray-400 text-center leading-tight">Sem Foto</span>
+                                                )}
+                                            </div>
+
+                                            <div>
+                                                <h3 className="text-sm font-medium text-gray-800 font-roboto mb-2">
+                                                    {item.product.name}
+                                                </h3>
+
+                                                <div className="flex items-center gap-3">
+                                                    <span className="text-xs text-gray-500">Qtd:</span>
+                                                    <div className="flex items-center border border-gray-200 rounded-md">
+                                                        <button
+                                                            onClick={() => decrementItem(item.product.id)}
+                                                            className="px-2 py-1 text-gray-600 hover:bg-gray-100 transition-colors"
+                                                        >
+                                                            -
+                                                        </button>
+                                                        <span className="px-3 text-xs font-medium text-gray-800 border-x border-gray-200">
+                                                            {item.quantity}
+                                                        </span>
+                                                        <button
+                                                            onClick={() => incrementItem(item.product.id)}
+                                                            className="px-2 py-1 text-gray-600 hover:bg-gray-100 transition-colors"
+                                                        >
+                                                            +
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="flex flex-col items-end gap-2">
-                                            {query.isLoading ? (
-                                                <span className="text-xs text-gray-400 animate-pulse bg-gray-100 px-2 py-1 rounded">
-                                                    Calculando...
-                                                </span>
-                                            ) : query.isError ? (
-                                                <span className="text-xs text-red-500 bg-red-50 px-2 py-1 rounded">
-                                                    Erro no valor
-                                                </span>
-                                            ) : (
-                                                <p className="font-bold text-gray-700">
-                                                    R$ {(price! * item.quantity).toFixed(2)}
-                                                </p>
-                                            )}
+
+                                        <div className="flex flex-col items-end gap-2 text-right">
+                                            <div className="text-sm font-bold text-gray-900">
+                                                {query.isLoading ? (
+                                                    <span className="text-xs text-gray-400 animate-pulse bg-gray-100 px-2 py-1 rounded">Calculando...</span>
+                                                ) : query.isError ? (
+                                                    <span className="text-xs text-red-500 bg-red-50 px-2 py-1 rounded">Erro no valor</span>
+                                                ) : (
+                                                    `R$ ${((price || 0) * item.quantity).toFixed(2)}`
+                                                )}
+                                            </div>
 
                                             <button
                                                 onClick={() => removeItem(item.product.id)}
-                                                className="text-red-500 text-xs font-medium hover:cursor-pointer transition-colors hover:text-red-900"
+                                                className="text-red-500 hover:text-red-700 hover:bg-red-50 p-1.5 rounded transition-colors mt-1 hover:cursor-pointer"
+                                                title="Remover item"
+                                                aria-label="Remover item"
                                             >
-                                                Remover
+                                                <TrashIcon className="w-5 h-5" />
                                             </button>
                                         </div>
+
                                     </li>
                                 );
                             })}
