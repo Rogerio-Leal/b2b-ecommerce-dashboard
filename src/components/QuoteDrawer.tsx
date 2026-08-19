@@ -1,12 +1,27 @@
 "use client";
 
-import Image from "next/image";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useQuoteStore } from "../store/useQuoteStore";
 import { useQueries } from "@tanstack/react-query";
 import { getProductStock } from "../services/stock";
+import Image from "next/image";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 export function QuoteDrawer() {
+    const { data: session } = useSession();
+    const router = useRouter();
+
+    const handleEnviarOrcamento = () => {
+        if (session) {
+
+            alert(`Tudo certo, ${session.user?.email}! Orçamento pronto para envio.`);
+
+        } else {
+            // Se não tem sessão, manda para a tela de login!
+            router.push("/login");
+        }
+    };
     const { items, isOpen, closeCart, removeItem, incrementItem, decrementItem } = useQuoteStore();
 
     const stockQueries = useQueries({
@@ -136,7 +151,8 @@ export function QuoteDrawer() {
                     </div>
                     <button
                         disabled={isLoadingPrices || items.length === 0}
-                        className="w-full bg-green-600 text-white py-3 rounded-md font-bold text-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm font-roboto"
+                        onClick={handleEnviarOrcamento}
+                        className="w-full bg-green-600 text-white py-3 rounded-md font-bold text-lg hover:cursor-pointer hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm font-roboto"
                     >
                         Enviar Solicitação
                     </button>
