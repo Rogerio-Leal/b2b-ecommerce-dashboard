@@ -16,6 +16,7 @@ interface QuoteStore {
     clearQuote: () => void;
     openCart: () => void;
     closeCart: () => void;
+    clearCart: () => void;
 }
 
 export const useQuoteStore = create<QuoteStore>((set) => ({
@@ -24,6 +25,7 @@ export const useQuoteStore = create<QuoteStore>((set) => ({
 
     openCart: () => set({ isOpen: true }),
     closeCart: () => set({ isOpen: false }),
+    clearCart: () => set({ items: [] }),
 
     addItem: (product) =>
         set((state) => {
