@@ -14,7 +14,7 @@ export default function LoginPage() {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setError("");
@@ -91,9 +91,9 @@ export default function LoginPage() {
 
                 <div className="mt-8 text-sm text-gray-500">
                     Ainda não tem cadastro?{" "}
-                    <button className="text-blue-600 hover:underline font-medium hover:cursor-pointer">
+                    <Link href="/cadastro" className="text-blue-600 hover:underline font-medium">
                         Crie seu cadastro
-                    </button>
+                    </Link>
                 </div>
             </div>
         </main>

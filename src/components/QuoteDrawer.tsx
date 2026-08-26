@@ -11,14 +11,12 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 export function QuoteDrawer() {
     const { data: session } = useSession();
     const router = useRouter();
-    const { items, isOpen, closeCart, clearCart, removeItem, incrementItem, decrementItem } = useQuoteStore();
+    const { items, isOpen, closeCart, removeItem, incrementItem, decrementItem } = useQuoteStore();
 
     const handleEnviarOrcamento = () => {
         if (session) {
-            alert(`Tudo certo, ${session.user?.email}! Orçamento pronto para envio.`);
-
-            clearCart();
             closeCart();
+            router.push("/checkout");
         } else {
             router.push("/login");
         }
