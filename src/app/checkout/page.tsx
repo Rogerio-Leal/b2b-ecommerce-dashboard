@@ -13,6 +13,7 @@ export default function CheckoutPage() {
     const { items, clearCart } = useQuoteStore();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [orderNumber, setOrderNumber] = useState<string | null>(null);
+    const [paymentMethod, setPaymentMethod] = useState("boleto");
 
     const stockQueries = useQueries({
         queries: items.map((item) => ({
@@ -86,11 +87,8 @@ export default function CheckoutPage() {
                 </div>
 
                 <h1 className="text-2xl font-bold text-gray-800 mb-8">Resumo do Orçamento</h1>
-
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
                     <div className="lg:col-span-2 space-y-6">
-
                         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                             <h2 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Itens Solicitados</h2>
                             <div className="divide-y divide-gray-100">
@@ -132,18 +130,63 @@ export default function CheckoutPage() {
                                 <span className="font-medium text-gray-500 text-sm">A calcular</span>
                             </div>
 
+                            {paymentMethod === "pix" && (
+                                <div className="flex justify-between items-center mb-4 text-green-600">
+                                    <span className="font-medium">Desconto Pix (5%)</span>
+                                    <span className="font-medium">- R$ {(total * 0.05).toFixed(2)}</span>
+                                </div>
+                            )}
+
                             <div className="flex justify-between items-center border-t pt-4 mb-6">
                                 <span className="font-bold text-gray-800 text-lg">Total Previsto</span>
-                                <span className="font-bold text-green-600 text-2xl">R$ {total.toFixed(2)}</span>
+                                <span className="font-bold text-green-600 text-2xl">
+                                    R$ {paymentMethod === "pix" ? (total * 0.95).toFixed(2) : total.toFixed(2)}
+                                </span>
                             </div>
 
                             <div className="mb-6">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Condição de Pagamento</label>
-                                <select className="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 border outline-none">
-                                    <option>Boleto 30/60/90 dias</option>
-                                    <option>Boleto 30 dias</option>
-                                    <option>Pix Antecipado (5% desconto)</option>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Forma de Pagamento</label>
+                                <select
+                                    value={paymentMethod}
+                                    onChange={(e) => setPaymentMethod(e.target.value)}
+                                    className="w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 border outline-none mb-4 bg-white"
+                                >
+                                    <option value="boleto">Boleto Faturado (30/60/90 dias)</option>
+                                    <option value="pix">Pix (5% de desconto)</option>
+                                    <option value="credit_card">Cartão de Crédito</option>
                                 </select>
+
+                                {/* Cartão de Crédito */}
+                                {paymentMethod === "credit_card" && (
+                                    <div className="space-y-3 mb-4 bg-gray-50 p-4 rounded-md border border-gray-200">
+                                        <div>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1">Número do Cartão</label>
+                                            <input type="text" placeholder="0000 0000 0000 0000" maxLength={19} className="w-full text-sm px-3 py-2 border border-gray-300 rounded-md outline-none focus:ring-1 focus:ring-blue-500" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-medium text-gray-700 mb-1">Nome impresso no cartão</label>
+                                            <input type="text" placeholder="NOME DO TITULAR" className="w-full text-sm px-3 py-2 border border-gray-300 rounded-md outline-none focus:ring-1 focus:ring-blue-500 uppercase" />
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <label className="block text-xs font-medium text-gray-700 mb-1">Validade</label>
+                                                <input type="text" placeholder="MM/AA" maxLength={5} className="w-full text-sm px-3 py-2 border border-gray-300 rounded-md outline-none focus:ring-1 focus:ring-blue-500" />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-medium text-gray-700 mb-1">CVV</label>
+                                                <input type="text" placeholder="123" maxLength={4} className="w-full text-sm px-3 py-2 border border-gray-300 rounded-md outline-none focus:ring-1 focus:ring-blue-500" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Instruções do Pix */}
+                                {paymentMethod === "pix" && (
+                                    <div className="bg-blue-50 p-4 rounded-md border border-blue-100 text-sm text-blue-800 mb-4">
+                                        <p className="font-bold mb-1">Pagamento Instantâneo</p>
+                                        <p>O QR Code e a chave Copia e Cola serão gerados na próxima tela após a confirmação do pedido.</p>
+                                    </div>
+                                )}
                             </div>
 
                             <button

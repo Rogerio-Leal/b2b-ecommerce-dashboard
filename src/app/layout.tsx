@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers} from "../components/Providers";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "Vitrine B2B",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body className="bg-gray-100 text-gray-900">
         <Providers>
           {children}
+          <WhatsAppButton />
         </Providers>
       </body>
     </html>
