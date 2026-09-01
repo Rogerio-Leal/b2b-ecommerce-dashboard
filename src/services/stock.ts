@@ -5,7 +5,7 @@ export interface StockData {
 }
 
 export async function getProductStock(id: string): Promise<StockData> {
-    const response = await fetch(`http://localhost:3000/api/stock?productId=${id}`);
+    const response = await fetch(`/api/stock?productId=${id}`);
 
     if (!response.ok) {
         throw new Error("Erro ao buscar dados do ERP");
