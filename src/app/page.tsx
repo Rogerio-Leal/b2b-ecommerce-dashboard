@@ -73,10 +73,9 @@ export default function Home() {
     );
   }
   const categories = ["Todos", "Limpeza", "Descartáveis", "Higiene"];
-
   const filteredProducts = products?.filter((product) => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "Todos" || product.category === selectedCategory;
+  const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+  const matchesCategory = selectedCategory === "Todos" || product.category.toLowerCase() === selectedCategory.toLowerCase();
 
     return matchesSearch && matchesCategory;
   }) || [];
