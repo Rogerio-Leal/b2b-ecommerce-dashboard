@@ -74,8 +74,8 @@ export default function Home() {
   }
   const categories = ["Todos", "Limpeza", "Descartáveis", "Higiene"];
   const filteredProducts = products?.filter((product) => {
-  const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-  const matchesCategory = selectedCategory === "Todos" || product.category.toLowerCase() === selectedCategory.toLowerCase();
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "Todos" || product.category.toLowerCase() === selectedCategory.toLowerCase();
 
     return matchesSearch && matchesCategory;
   }) || [];
@@ -118,20 +118,29 @@ export default function Home() {
               key={product.id}
               className="group bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 flex flex-col items-center text-center h-full"
             >
-              <div className="w-full h-48 relative bg-gray-50 rounded-lg mb-4 flex items-center justify-center overflow-hidden hover:cursor-pointer">
-                {product.imageUrl ? (
-                  <Image
-                    src={product.imageUrl}
-                    alt={`Imagem do produto ${product.name}`}
-                    fill
-                    priority
-                    className="object-contain p-2 transition-transform duration-300 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                  />
-                ) : (
-                  <span className="text-gray-400 text-sm font-roboto">Imagem Indisponível</span>
-                )}
-              </div>
+              <Link href={`/produto/${product.id}`} className="w-full">
+                <div className="w-full h-48 relative bg-gray-50 rounded-lg mb-4 flex items-center justify-center overflow-hidden cursor-pointer group/image">
+
+                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover/image:opacity-100 transition-all duration-300 z-10 backdrop-blur-[1px]">
+                    <span className="text-white font-medium text-sm border border-white px-4 py-2 rounded-md transform translate-y-2 group-hover/image:translate-y-0 transition-transform duration-300">
+                      Clique para saber mais
+                    </span>
+                  </div>
+
+                  {product.imageUrl ? (
+                    <Image
+                      src={product.imageUrl}
+                      alt={`Imagem do produto ${product.name}`}
+                      fill
+                      priority
+                      className="object-contain p-2 transition-transform duration-300 group-hover/image:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    />
+                  ) : (
+                    <span className="text-gray-400 text-sm font-roboto">Imagem Indisponível</span>
+                  )}
+                </div>
+              </Link>
 
               <span className="inline-block bg-blue-50 text-blue-700 text-xs px-3 py-1 rounded-full mb-3 font-medium">
                 {product.category}
