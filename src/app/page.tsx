@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useProducts } from "../hooks/useProducts";
 import { useQuoteStore } from "../store/useQuoteStore";
 import { Header } from "../components/Header";
@@ -9,6 +8,8 @@ import { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
+import Carousel from "../components/Carousel";
+import Image from "next/image";
 import Link from "next/link";
 
 const fetchStock = async (productId: string) => {
@@ -112,6 +113,8 @@ export default function Home() {
             className="w-full pl-4 pr-10 py-3 border-none bg-transparent focus:outline-none focus:ring-0 font-roboto text-gray-700 placeholder-gray-400"
           />
         </div>
+
+        <Carousel />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
