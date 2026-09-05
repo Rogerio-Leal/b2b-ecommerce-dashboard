@@ -86,30 +86,31 @@ export default function Home() {
       <QuoteDrawer />
 
       <main className="max-w-7xl mx-auto p-8">
-        <div className="flex flex-col md:flex-row gap-4 justify-between items-center mb-8 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-          <div className="w-full md:w-1/2 relative">
-            <input
-              type="text"
-              placeholder="Buscar produtos..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-roboto"
-            />
-          </div>
-          <div className="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full whitespace-nowrap text-sm font-medium transition-colors ${selectedCategory === category
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+
+        <nav className="flex gap-3 overflow-x-auto pb-2 mb-8 scrollbar-hide">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`whitespace-nowrap px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:cursor-pointer ${
+                selectedCategory === category
+                  ? "bg-blue-600 text-white shadow-md"
+                  : "bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600 border border-gray-200"
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </nav>
+
+        <div className="w-full relative mb-10 bg-white p-2 rounded-lg shadow-sm border border-gray-100">
+          <input
+            type="text"
+            placeholder="Buscar produtos pelo nome..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-4 pr-10 py-3 border-none bg-transparent focus:outline-none focus:ring-0 font-roboto text-gray-700 placeholder-gray-400"
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
