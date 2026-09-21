@@ -5,21 +5,14 @@ import Link from "next/link";
 
 export function WhatsAppButton() {
     const [isHovered, setIsHovered] = useState(false);
-
-    // Aqui você vai colocar o número real da sua empresa (apenas números, com DDI e DDD)
     const phoneNumber = "5551999999999";
-
-    // Esta é a mensagem que já vem escrita quando o cliente abre o WhatsApp
     const defaultMessage = encodeURIComponent("Olá! Gostaria de falar com um vendedor sobre os produtos do catálogo B2B.");
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${defaultMessage}`;
 
     return (
         <div
-            className="fixed bottom-6 right-6 z-50 flex items-center justify-end"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            className="fixed bottom-6 right-6 z-50 flex items-center justify-end pointer-events-none"
         >
-            {/* Balão de mensagem (Tooltip) que aparece ao passar o mouse */}
             <div
                 className={`mr-4 bg-white px-4 py-3 rounded-lg shadow-lg border border-gray-100 transition-all duration-300 origin-right ${isHovered ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
                     }`}
@@ -32,12 +25,13 @@ export function WhatsAppButton() {
                 </p>
             </div>
 
-            {/* Botão circular verde com o ícone SVG */}
             <Link
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#25D366] hover:bg-[#20bd5a] text-white p-4 rounded-full shadow-lg transition-transform hover:scale-110 flex items-center justify-center"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className="bg-[#25D366] hover:bg-[#20bd5a] text-white p-4 rounded-full shadow-lg transition-transform hover:scale-110 flex items-center justify-center pointer-events-auto"
                 aria-label="Fale conosco no WhatsApp"
             >
                 <svg
