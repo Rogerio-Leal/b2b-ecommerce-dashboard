@@ -65,9 +65,7 @@ export function QuoteDrawer() {
 
                                 return (
                                     <li key={item.product.id} className="flex items-center justify-between gap-4 border-b border-gray-100 pb-4">
-
                                         <div className="flex items-center gap-4 flex-1">
-
                                             <div className="w-16 h-16 relative bg-gray-50 rounded-md overflow-hidden shrink-0 border border-gray-200 flex items-center justify-center">
                                                 {item.product.imageUrl ? (
                                                     <Image

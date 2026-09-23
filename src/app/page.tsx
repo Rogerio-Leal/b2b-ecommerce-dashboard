@@ -2,8 +2,6 @@
 
 import { useProducts } from "../hooks/useProducts";
 import { useQuoteStore } from "../store/useQuoteStore";
-import { Header } from "../components/Header";
-import { QuoteDrawer } from "../components/QuoteDrawer";
 import { useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
@@ -83,8 +81,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
-      <QuoteDrawer />
 
       <main className="max-w-7xl mx-auto p-8">
 

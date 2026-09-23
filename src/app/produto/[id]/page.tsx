@@ -80,7 +80,7 @@ export default function ProductDetailsPage() {
                                 </p>
                                 <button
                                     onClick={() => addItem(product)}
-                                    className="w-full bg-blue-600 text-white font-bold py-4 rounded-lg hover:bg-blue-700 hover:shadow-md transition-all active:scale-[0.98] text-lg"
+                                    className="w-full bg-blue-600 text-white font-bold py-4 rounded-lg hover:bg-blue-700 hover:shadow-md transition-all active:scale-[0.98] text-lg cursor-pointer  "
                                 >
                                     Adicionar ao Carrinho
                                 </button>
